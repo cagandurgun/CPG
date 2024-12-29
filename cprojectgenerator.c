@@ -23,15 +23,15 @@ void add_include_to_main(const char *project_name, const char *library_name);
 void show_help() {
     printf("\033[1;33mCPG - C Project Generator Tool\033[0m\n\n");
     printf("\033[1;36mUsage:\033[0m\n");
-    printf("  \033[32mcpg [ProjectName]\033[0m \033[33mCreate a new project\033[0m\n");
-    printf("  \033[32mcpg help\033[0m \033[33mShow this help message\033[0m\n");
-    printf("  \033[32mcpg addfunc [ProjectName] [LibName] [FuncName] [ReturnType] [Params]\033[0m\n");
-    printf("  \033[33mAdd a new function to the project\033[0m\n");
-    printf("  \033[32mcpg removefunc [ProjectName] [LibName] [FuncName]\033[0m \033[33mRemove a function from the project\033[0m\n");
-    printf("  \033[32mcpg addlib [ProjectName] [LibraryName]\033[0m \033[33mAdd an external library to the project\033[0m\n");
-    printf("  \033[32mcpg removelib [ProjectName] [LibraryName]\033[0m \033[33mRemove an external library from the project\033[0m\n");
-    printf("  \033[32mcpg removeproject [ProjectName]\033[0m \033[33mDelete the entire project\033[0m\n");
-    printf("  \033[32mcpg buildrun [ProjectName]\033[0m \033[33mBuild and run the project\033[0m\n\n");
+    printf("\t\033[33mCreate a new project\033[0m\n\t\t\033[32mcpg [ProjectName]\033[0m");
+    printf("\t\033[33mShow this help message\033[0m\n\t\t\033[32mcpg help\033[0m\n");
+    printf("\t\033[33mAdd a new function to the project\033[0m\n\t\t\033[32mcpg addfunc [ProjectName] [LibName] [FuncName] [ReturnType] [Params]\033[0m\n");
+    printf("\t\033[33mRemove a function from the project\033[0m\n\t\t\033[32mcpg removefunc [ProjectName] [LibName] [FuncName]\033[0m\n");
+    printf("\t\033[33mAdd an external library to the project\033[0m\n\t\t\033[32mcpg addlib [ProjectName] [LibraryName]\033[0m\n");
+    printf("\t\033[33mRemove an external library from the project\033[0m\n\t\t\033[32mcpg removelib [ProjectName] [LibraryName]\033[0m\n");
+    printf("\t\033[33mDelete the entire project\033[0m\n\t\t\033[32mcpg removeproject [ProjectName]\033[0m\n");
+    printf("\t\033[33mBuild and run the project\033[0m\n\t\t\033[32mcpg buildrun [ProjectName]\033[0m\n");
+    printf("\t\t\t\n");
 }
 
 // Function to create a directory
