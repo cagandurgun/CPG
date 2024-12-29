@@ -24,11 +24,7 @@ void show_help() {
    int line_length = 50;  // Base length for border
 
    // Print top border
-   printf("\n");
-   for(int i = 0; i < line_length; i++) printf("━");
-   printf(" CPG ");
-   for(int i = 0; i < line_length; i++) printf("━");
-   printf("\n");
+   printf("\n\n");
 
    printf("\n\033[1;36m📦 C Project Generator - Command Line Tool\033[0m\n\n");
 
@@ -65,9 +61,7 @@ void show_help() {
    // Build and Run
    printf("  \033[1;34m🚀 Build and Run\033[0m\n");
    printf("     \033[32mcpg buildrun [ProjectName]\033[0m\n\n");
-
-   // Print bottom border
-   for(int i = 0; i < 2 * line_length + 5; i++) printf("━");
+  
    printf("\n\n");
 }
 
