@@ -393,6 +393,7 @@ void remove_project(const char *project_name) {
 }
 
 void build_and_run_project(const char *project_name) {
+    printf("\n");
     char command[256];
     
     // Build the project
