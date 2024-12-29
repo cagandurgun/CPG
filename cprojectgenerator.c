@@ -393,28 +393,34 @@ void remove_project(const char *project_name) {
 }
 
 void build_and_run_project(const char *project_name) {
-    printf("Project '%s' is building...\n", project_name);
-    char command[256];
-    
-    // Build the project
-    snprintf(command, sizeof(command), "cd %s && make", project_name);
-    if (system(command) != 0) {
-        printf("Error building the project.\n");
-        return;
-    }
+   printf("\n━━━━━━━━━━━━━━━━━━━━ %s ━━━━━━━━━━━━━━━━━━━━\n", project_name);
+   
+   // Build message
+   printf("\n\033[1;33m⚡ Building project...\033[0m\n\n");
+   
+   char command[256];
+   
+   // Build the project
+   snprintf(command, sizeof(command), "cd %s && make", project_name);
+   if (system(command) != 0) {
+       printf("\n\033[1;31m✖ Error: Build failed!\033[0m\n");
+       return;
+   }
 
+   printf("\n\033[1;32m✔ Build successful!\033[0m\n");
+   
+   // Run message
+   printf("\n\033[1;33m▶ Running project...\033[0m\n\n");
+   
+   // Run the project
+   snprintf(command, sizeof(command), "cd %s && ./main", project_name);
+   if (system(command) == 0) {
+       printf("\n\033[1;32m✔ Program executed successfully!\033[0m\n");
+   } else {
+       printf("\n\033[1;31m✖ Error: Program execution failed!\033[0m\n");
+   }
 
-    printf("merhaba abi\n");
-
-
-
-    // Run the project
-    snprintf(command, sizeof(command), "cd %s && ./main", project_name);
-    if (system(command) == 0) {
-        printf("\n\033[32mProject '%s' ran successfully!\033[0m\n", project_name);
-    } else {
-        printf("Error running the project.\n");
-    }
+   printf("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n");
 }
 
 int main(int argc, char *argv[]) {
