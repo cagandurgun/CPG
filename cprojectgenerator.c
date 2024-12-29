@@ -263,27 +263,55 @@ void add_include_to_main(const char *project_name, const char *library_name) {
 void add_function(const char *project_name, const char *lib_name, const char *func_name, 
                  const char *return_type, const char *params) {
     char path[256];
+    const char *param_final;
+    
+    // Parametre kontrolü ve düzeltmesi
+    if (strcmp(params, "null") == 0 || strcmp(params, "void") == 0) {
+        param_final = "void";
+    } else {
+        param_final = params;
+    }
 
-    // Add to header file
+    // Header dosyasını güncelle
     snprintf(path, sizeof(path), "%s/include/%s.h", project_name, lib_name);
     FILE *header_file = fopen(path, "r+");
     if (header_file) {
-        fseek(header_file, -strlen("#endif // _H\n"), SEEK_END);
+        // Dosya sonunda #endif'i bul
+        fseek(header_file, 0, SEEK_END);
+        long file_size = ftell(header_file);
+        
+        // Dosyayı baştan okuyarak #endif'in konumunu bul
+        char buffer[1024];
+        long endif_pos = 0;
+        fseek(header_file, 0, SEEK_SET);
+        
+        while (fgets(buffer, sizeof(buffer), header_file)) {
+            if (strstr(buffer, "#endif")) {
+                endif_pos = ftell(header_file) - strlen(buffer);
+                break;
+            }
+        }
+        
+        // #endif'in olduğu yere git
+        fseek(header_file, endif_pos, SEEK_SET);
+        
+        // Yeni fonksiyon prototipini yaz
         fprintf(header_file, "%s %s(%s);\n\n#endif // %s_H\n", 
-                return_type, func_name, params, lib_name);
+                return_type, func_name, param_final, lib_name);
+        
         fclose(header_file);
         printf("Added function prototype to %s.h: %s %s(%s);\n", 
-               lib_name, return_type, func_name, params);
+               lib_name, return_type, func_name, param_final);
     } else {
         perror("Error opening header file");
         return;
     }
 
-    // Add to source file
+    // Kaynak dosyasını güncelle
     snprintf(path, sizeof(path), "%s/src/%s.c", project_name, lib_name);
     FILE *source_file = fopen(path, "a");
     if (source_file) {
-        fprintf(source_file, "\n%s %s(%s) {\n", return_type, func_name, params);
+        fprintf(source_file, "\n%s %s(%s) {\n", return_type, func_name, param_final);
         fprintf(source_file, "    // TODO: Implement %s\n", func_name);
         if (strcmp(return_type, "void") != 0) {
             fprintf(source_file, "    return 0; // Default return value\n");
@@ -291,7 +319,7 @@ void add_function(const char *project_name, const char *lib_name, const char *fu
         fprintf(source_file, "}\n");
         fclose(source_file);
         printf("Added function definition to %s.c: %s %s(%s)\n", 
-               lib_name, return_type, func_name, params);
+               lib_name, return_type, func_name, param_final);
     } else {
         perror("Error opening source file");
     }
