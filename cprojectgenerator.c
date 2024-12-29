@@ -393,7 +393,7 @@ void remove_project(const char *project_name) {
 }
 
 void build_and_run_project(const char *project_name) {
-    printf("\n");
+    printf("Project '%s' is building...\n", project_name);
     char command[256];
     
     // Build the project
@@ -402,6 +402,11 @@ void build_and_run_project(const char *project_name) {
         printf("Error building the project.\n");
         return;
     }
+
+
+    printf("merhaba abi\n");
+
+
 
     // Run the project
     snprintf(command, sizeof(command), "cd %s && ./main", project_name);
