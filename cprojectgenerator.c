@@ -405,7 +405,7 @@ void build_and_run_project(const char *project_name) {
     // Run the project
     snprintf(command, sizeof(command), "cd %s && ./main", project_name);
     if (system(command) == 0) {
-        printf("\nProject '%s' ran successfully!\n", project_name);
+        printf("\n\033[32mProject '%s' ran successfully!\033[0m\n", project_name);
     } else {
         printf("Error running the project.\n");
     }
