@@ -21,17 +21,54 @@ void add_include_to_main(const char *project_name, const char *library_name);
 
 // Function to display help message
 void show_help() {
-    printf("\n\033[1;33mC Project Generator (CPG)\033[0m\n");
-    printf("  \033[1;36mUsage:\033[0m\n");
-    printf("    \033[33mCreate a new project\033[0m\n      \033[32mcpg [ProjectName]\033[0m\n");
-    printf("    \033[33mShow this help message\033[0m\n      \033[32mcpg help\033[0m\n");
-    printf("    \033[33mAdd a new function to the project\033[0m\n      \033[32mcpg addfunc [ProjectName] [LibName] [FuncName] [ReturnType] [Params]\033[0m\n");
-    printf("    \033[33mRemove a function from the project\033[0m\n      \033[32mcpg removefunc [ProjectName] [LibName] [FuncName]\033[0m\n");
-    printf("    \033[33mAdd an external library to the project\033[0m\n      \033[32mcpg addlib [ProjectName] [LibraryName]\033[0m\n");
-    printf("    \033[33mRemove an external library from the project\033[0m\n      \033[32mcpg removelib [ProjectName] [LibraryName]\033[0m\n");
-    printf("    \033[33mDelete the entire project\033[0m\n      \033[32mcpg removeproject [ProjectName]\033[0m\n");
-    printf("    \033[33mBuild and run the project\033[0m\n      \033[32mcpg buildrun [ProjectName]\033[0m\n");
-    printf("\n");
+   int line_length = 50;  // Base length for border
+
+   // Print top border
+   printf("\n");
+   for(int i = 0; i < line_length; i++) printf("━");
+   printf(" CPG ");
+   for(int i = 0; i < line_length; i++) printf("━");
+   printf("\n");
+
+   printf("\n\033[1;36m📦 C Project Generator - Command Line Tool\033[0m\n\n");
+
+   printf("\033[1;33m🔧 Available Commands:\033[0m\n\n");
+
+   // Create Project
+   printf("  \033[1;34m📁 Create New Project\033[0m\n");
+   printf("     \033[32mcpg [ProjectName]\033[0m\n\n");
+
+   // Help
+   printf("  \033[1;34m❓ Show Help\033[0m\n");
+   printf("     \033[32mcpg help\033[0m\n\n");
+
+   // Add Function
+   printf("  \033[1;34m➕ Add Function\033[0m\n");
+   printf("     \033[32mcpg addfunc [ProjectName] [LibName] [FuncName] [ReturnType] [Params]\033[0m\n\n");
+
+   // Remove Function
+   printf("  \033[1;34m➖ Remove Function\033[0m\n");
+   printf("     \033[32mcpg removefunc [ProjectName] [LibName] [FuncName]\033[0m\n\n");
+
+   // Add Library
+   printf("  \033[1;34m📚 Add Library\033[0m\n");
+   printf("     \033[32mcpg addlib [ProjectName] [LibraryName]\033[0m\n\n");
+
+   // Remove Library
+   printf("  \033[1;34m🗑️  Remove Library\033[0m\n");
+   printf("     \033[32mcpg removelib [ProjectName] [LibraryName]\033[0m\n\n");
+
+   // Remove Project
+   printf("  \033[1;34m💣 Remove Project\033[0m\n");
+   printf("     \033[32mcpg removeproject [ProjectName]\033[0m\n\n");
+
+   // Build and Run
+   printf("  \033[1;34m🚀 Build and Run\033[0m\n");
+   printf("     \033[32mcpg buildrun [ProjectName]\033[0m\n\n");
+
+   // Print bottom border
+   for(int i = 0; i < 2 * line_length + 5; i++) printf("━");
+   printf("\n\n");
 }
 
 // Function to create a directory
@@ -393,34 +430,45 @@ void remove_project(const char *project_name) {
 }
 
 void build_and_run_project(const char *project_name) {
-   printf("\n━━━━━━━━━━━━━━━━━━━━ %s ━━━━━━━━━━━━━━━━━━━━\n", project_name);
-   
-   // Build message
-   printf("\n\033[1;33m⚡ Building project...\033[0m\n\n");
-   
-   char command[256];
-   
-   // Build the project
-   snprintf(command, sizeof(command), "cd %s && make", project_name);
-   if (system(command) != 0) {
-       printf("\n\033[1;31m✖ Error: Build failed!\033[0m\n");
-       return;
-   }
+    int name_length = strlen(project_name);
+    int line_length = 20; // Base length for each side
+    
+    // Print top border with project name
+    printf("\n");
+    for(int i = 0; i < line_length; i++) printf("━");
+    printf(" %s ", project_name);
+    for(int i = 0; i < line_length; i++) printf("━");
+    printf("\n");
+    
+    // Build message
+    printf("\n\033[1;33m⚡ Building project...\033[0m\n\n");
+    
+    char command[256];
+    
+    // Build the project
+    snprintf(command, sizeof(command), "cd %s && make", project_name);
+    if (system(command) != 0) {
+        printf("\n\033[1;31m✖ Error: Build failed!\033[0m\n");
+        return;
+    }
 
-   printf("\n\033[1;32m✔ Build successful!\033[0m\n");
-   
-   // Run message
-   printf("\n\033[1;33m▶ Running project...\033[0m\n\n");
-   
-   // Run the project
-   snprintf(command, sizeof(command), "cd %s && ./main", project_name);
-   if (system(command) == 0) {
-       printf("\n\033[1;32m✔ Program executed successfully!\033[0m\n");
-   } else {
-       printf("\n\033[1;31m✖ Error: Program execution failed!\033[0m\n");
-   }
+    printf("\n\033[1;32m✔ Build successful!\033[0m\n");
+    
+    // Run message
+    printf("\n\033[1;33m▶ Running project...\033[0m\n\n");
+    
+    // Run the project
+    snprintf(command, sizeof(command), "cd %s && ./main", project_name);
+    if (system(command) == 0) {
+        printf("\n\033[1;32m✔ Program executed successfully!\033[0m\n");
+    } else {
+        printf("\n\033[1;31m✖ Error: Program execution failed!\033[0m\n");
+    }
 
-   printf("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n");
+    // Print bottom border with same length as top
+    printf("\n");
+    for(int i = 0; i < 2 * line_length + name_length + 2; i++) printf("━");
+    printf("\n\n");
 }
 
 int main(int argc, char *argv[]) {
