@@ -13,10 +13,10 @@ A command-line tool for generating and managing C projects.
 ## Installation
 
 ```bash
-https://github.com/cagandurgun/CPG.git
-cd cpg
-gcc -o cpg cpg.c
-sudo cp cpg /usr/local/bin/
+git clone https://github.com/cagandurgun/CPG.git
+cd CPG
+gcc cprojectgenerator.c -o cpg
+./cpg help
 ```
 
 ## Usage
