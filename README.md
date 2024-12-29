@@ -13,7 +13,7 @@ A command-line tool for generating and managing C projects.
 ## Installation
 
 ```bash
-git clone https://github.com/cagandurgun/cpg.git
+https://github.com/cagandurgun/CPG.git
 cd cpg
 gcc -o cpg cpg.c
 sudo cp cpg /usr/local/bin/
